@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Degelo Ar Condicionados</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --teal: #1BBFC7;
+    --teal-dark: #14A0A8;
+    --navy: #0D1E4A;
+    --blue-mid: #1A3D8F;
+    --blue-light-bg: #EEF4FF;
+    --blue-card-bg: #1a3278;
+    --white: #FFFFFF;
+    --off-white: #F7FAFF;
+    --gray-text: #6B7A99;
+    --gray-light: #e5eaf5;
+    --dark-text: #0D1E4A;
+    --body-text: #4A5568;
+    color-scheme: light;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--white);
+    color: var(--body-text);
+    overflow-x: hidden;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--navy);
+    color: #a0aec0;
+    font-size: 13px;
+    padding: 8px 0;
+  }
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .topbar-left { display: flex; gap: 20px; flex-wrap: wrap; }
+  .topbar-left span { display: flex; align-items: center; gap: 6px; }
+  .topbar-left svg { width: 13px; height: 13px; fill: var(--teal); flex-shrink: 0; }
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .topbar-right span { color: #a0aec0; }
+  .topbar-right a {
+    width: 26px; height: 26px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #a0aec0;
+    font-size: 11px;
+    transition: background .2s, color .2s;
+  }
+  .topbar-right a:hover { background: var(--teal); color: #fff; }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-light);
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(13,30,74,.07);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px; font-weight: 800;
+    color: var(--navy);
+  }
+  .logo-icon {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-icon svg { width: 24px; height: 24px; fill: white; }
+  .logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--navy); padding: 6px 14px; border-radius: 4px;
+    transition: color .2s;
+    position: relative;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+  .nav-links a.active::after {
+    content: ''; position: absolute; bottom: -2px; left: 14px; right: 14px;
+    height: 2px; background: var(--teal); border-radius: 2px;
+  }
+  .btn-quote {
+    background: var(--teal);
+    color: white !important;
+    padding: 10px 22px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    display: flex; align-items: center; gap: 6px;
+    transition: background .2s, transform .15s !important;
+  }
+  .btn-quote:hover { background: var(--teal-dark) !important; transform: translateY(-1px); }
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+    cursor: pointer; border: none; outline: none;
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, #0D3380 0%, #1A3D8F 100%);
+    box-shadow: 0 4px 16px rgba(13,30,74,.3);
+    transition: box-shadow .2s, transform .2s;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hamburger::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1BBFC7 0%, #0D3380 100%);
+    opacity: 0; transition: opacity .25s;
+    border-radius: inherit;
+  }
+  .hamburger:hover::before, .hamburger.open::before { opacity: 1; }
+  .hamburger:hover { transform: scale(1.06); box-shadow: 0 6px 20px rgba(27,191,199,.4); }
+  .hamburger span {
+    display: block; width: 20px; height: 2.5px;
+    background: linear-gradient(90deg, #1BBFC7, #6EE7ED);
+    border-radius: 3px;
+    position: relative; z-index: 1;
+    transition: transform .32s cubic-bezier(.4,0,.2,1), opacity .2s, width .25s;
+  }
+  .hamburger span:nth-child(2) { width: 20px; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); width: 20px; background: white; }
+  .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); width: 20px; background: white; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 560px;
+    background: var(--navy);
+  }
+  .hero-slides { position: relative; width: 100%; height: 560px; }
+  .hero-slide {
+    position: absolute; inset: 0;
+    display: none;
+    align-items: center;
+  }
+  .hero-slide.active { display: flex; }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    filter: brightness(.45);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%;
+  }
+  .hero-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--teal); letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 16px; display: block;
+  }
+  .hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(30px, 4.5vw, 52px);
+    font-weight: 800; color: white;
+    line-height: 1.15; text-wrap: balance;
+    max-width: 620px;
+  }
+  .hero-title em { color: var(--teal); font-style: normal; }
+  .hero-desc {
+    color: rgba(255,255,255,.75);
+    max-width: 500px; margin: 20px 0 32px;
+    font-size: 15px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal);
+    color: white;
+    padding: 13px 28px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: background .2s, transform .15s;
+    cursor: pointer; border: none;
+  }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    padding: 13px 28px;
+    border-radius: 30px;
+    border: 2px solid rgba(255,255,255,.6);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-outline:hover { border-color: var(--teal); background: rgba(27,191,199,.15); }
+  .hero-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-radius: 50%; background: transparent;
+    color: white; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 30;
+    transition: border-color .2s, background .2s;
+  }
+  .hero-arrow:hover { border-color: var(--teal); background: var(--teal); }
+  .hero-arrow.prev { left: 20px; }
+  .hero-arrow.next { right: 20px; }
+  .hero-dots {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 30;
+  }
+  .hero-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,.4); cursor: pointer; border: none;
+    transition: background .3s, transform .3s;
+  }
+  .hero-dot.active { background: var(--teal); transform: scale(1.3); }
+
+  /* ── SECTION BASE ── */
+  .section { padding: 80px 0; }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 70px; }
+  .section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 12px; display: block;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(24px, 3.5vw, 38px);
+    font-weight: 800; color: var(--navy);
+    line-height: 1.2; text-wrap: balance;
+  }
+  .section-title em { color: var(--teal); font-style: normal; }
+  .section-center { text-align: center; }
+  .section-center .section-title { max-width: 620px; margin: 0 auto; }
+  .underline-bar {
+    display: flex; gap: 6px; margin-top: 12px;
+  }
+  .underline-bar span {
+    height: 3px; border-radius: 2px;
+  }
+  .underline-bar .bar1 { width: 30px; background: var(--teal); }
+  .underline-bar .bar2 { width: 12px; background: var(--teal); opacity: .4; }
+  .underline-bar.center { justify-content: center; }
+
+  /* ── FEATURE CARDS ── */
+  .features { background: white; }
+ .features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 0;
+}
+
+
+@media (max-width: 900px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+  .feature-card {
+    background: var(--blue-mid);
+    border-radius: 12px;
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s;
+  }
+  .feature-card:hover { transform: translateY(-4px); }
+  .feature-card::before {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    background: var(--teal);
+    border-radius: 50%;
+    opacity: .25;
+  }
+.feature-icon {
+  color: #00c6d7;
+}
+
+.feature-icon svg {
+  width: 42px;
+  height: 42px;
+  display: block;
+  color: inherit;
+}
+  .feature-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: white; margin-bottom: 10px;
+  }
+  .feature-card p { color: rgba(255,255,255,.7); font-size: 13.5px; line-height: 1.55; }
+
+  /* ── ABOUT ── */
+  .about { background: var(--off-white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-wrap img {
+    border-radius: 12px;
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+.about-badge {
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 10px;
+    min-width: 10px;
+}
+
+  .about-badge .big { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 900; color: white; display: block; }
+  .about-badge .small { font-size: 12px; color: rgba(255,255,255,.7); }
+  .about-dots {
+    position: absolute; top: 30px; right: -20px;
+    width: 80px; height: 100px;
+    background-image: radial-gradient(var(--teal) 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+    opacity: .5;
+  }
+  .about-content { padding-left: 12px; }
+  .about-desc { margin: 20px 0 24px; color: var(--body-text); line-height: 1.7; }
+  .about-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+  .about-check {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: var(--dark-text); font-weight: 500;
+  }
+  .about-check svg { width: 20px; height: 20px; fill: var(--teal); flex-shrink: 0; }
+  .about-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .about-phone { display: flex; align-items: center; gap: 14px; }
+  .about-phone-icon {
+    width: 48px; height: 48px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-phone-icon svg { width: 22px; height: 22px; fill: white; }
+  .about-phone-text small { font-size: 12px; color: var(--gray-text); display: block; }
+  .about-phone-text strong { font-family: 'Montserrat', sans-serif; font-size: 16px; color: var(--teal); font-weight: 700; }
+
+  /* ── SERVICES ── */
+  .services { background: var(--blue-light-bg); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+  .service-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(13,30,74,.06);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(13,30,74,.12); }
+  .service-img-wrap { position: relative; }
+  .service-img-wrap img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+  .service-icon-badge {
+    position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
+    width: 52px; height: 52px;
+    background: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  }
+  .service-icon-badge svg { width: 26px; height: 26px; fill: var(--teal); }
+  .service-body { padding: 36px 24px 24px; text-align: center; }
+  .service-body h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--navy); margin-bottom: 12px;
+  }
+  .service-body p { font-size: 14px; color: var(--body-text); line-height: 1.6; margin-bottom: 20px; }
+
+
+  /* ── STATS ── */
+  .stats {
+    background: linear-gradient(135deg, var(--blue-mid) 0%, var(--navy) 100%);
+    position: relative; overflow: hidden;
+  }
+  .stats::before {
+    content: ''; position: absolute; top: -60px; left: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(27,191,199,.08);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+  }
+  .stat-item { text-align: center; position: relative; z-index: 1; }
+  .stat-icon {
+    width: 72px; height: 72px;
+    background: var(--teal);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .stat-icon svg { width: 32px; height: 32px; fill: white; }
+  .stat-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 44px; font-weight: 900;
+    color: white; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-num sup { font-size: 22px; }
+  .stat-label { font-size: 14px; color: rgba(255,255,255,.7); margin-top: 6px; }
+
+  /* ── PORTFOLIO ── */
+  .portfolio { background: white; }
+  .portfolio-header {
+    display: flex; align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap; gap: 24px;
+    margin-bottom: 40px;
+  }
+  .portfolio-filters { display: flex; gap: 10px; flex-wrap: wrap; }
+  .filter-btn {
+    background: transparent;
+    border: 2px solid var(--gray-light);
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--teal); border-color: var(--teal); color: white;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .portfolio-item {
+    border-radius: 12px; overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative; cursor: pointer;
+  }
+  .portfolio-item img {
+    object-fit: initial;
+    transition: transform .4s;
+  }
+  .portfolio-item:hover img { transform: scale(1.06); }
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,30,74,.75) 0%, transparent 60%);
+    opacity: 0; transition: opacity .3s;
+    display: flex; align-items: flex-end; padding: 20px;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-overlay span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700; color: white;
+  }
+  [data-cat] { transition: opacity .3s, transform .3s; }
+  [data-cat].hidden { opacity: 0; pointer-events: none; position: absolute; }
+
+  /* ── TEAM ── */
+  .team { background: var(--off-white); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .team-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(13,30,74,.07);
+    transition: transform .2s;
+  }
+  .team-card:hover { transform: translateY(-5px); }
+  .team-img { position: relative; }
+  .team-img img { width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: top center; }
+  .team-share {
+    position: absolute; bottom: 16px; right: 16px;
+    width: 40px; height: 40px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .team-share svg { width: 18px; height: 18px; fill: white; }
+  .team-info { padding: 16px 20px 20px; }
+  .team-info h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--navy); }
+  .team-info p { font-size: 13px; color: var(--teal); font-weight: 600; margin-top: 4px; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--blue-mid), var(--navy));
+    padding: 70px 0;
+    position: relative; overflow: hidden;
+  }
+  .cta-banner::before, .cta-banner::after {
+    content: ''; position: absolute;
+    border-radius: 50%;
+    background: rgba(27,191,199,.08);
+  }
+  .cta-banner::before { width: 400px; height: 400px; left: -150px; top: -150px; }
+  .cta-banner::after { width: 300px; height: 300px; right: -80px; bottom: -80px; }
+  .cta-inner {
+    max-width: 800px; margin: 0 auto; padding: 0 24px;
+    text-align: center; position: relative; z-index: 1;
+  }
+  .cta-inner h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 800; color: white;
+    text-wrap: balance; margin-bottom: 16px;
+  }
+  .cta-inner h2 em { color: var(--teal); font-style: normal; }
+  .cta-inner p { color: rgba(255,255,255,.75); margin-bottom: 32px; }
+
+  /* ── PRICING ── */
+  .pricing { background: var(--blue-light-bg); }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .pricing-card {
+    background: white;
+    border-radius: 14px;
+    padding: 36px 28px;
+    box-shadow: 0 4px 20px rgba(13,30,74,.07);
+    position: relative;
+    transition: transform .2s;
+  }
+  .pricing-card:hover { transform: translateY(-6px); }
+  .pricing-card.featured {
+    background: var(--navy);
+    border: 2px solid var(--teal);
+  }
+  .pricing-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--teal);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 18px; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .pricing-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px;
+  }
+  .pricing-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px; font-weight: 900;
+    color: var(--navy); line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .pricing-card.featured .pricing-price { color: white; }
+  .pricing-price small { font-size: 16px; vertical-align: super; }
+  .pricing-period { font-size: 13px; color: var(--gray-text); margin-bottom: 24px; }
+  .pricing-card.featured .pricing-period { color: rgba(255,255,255,.6); }
+  .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .pricing-features li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: var(--body-text);
+  }
+  .pricing-card.featured .pricing-features li { color: rgba(255,255,255,.8); }
+  .pricing-features li svg { width: 16px; height: 16px; fill: var(--teal); flex-shrink: 0; }
+  .pricing-features li.off svg { fill: #ccc; }
+  .pricing-features li.off { opacity: .5; text-decoration: line-through; }
+  .btn-plan {
+    display: block; width: 100%;
+    padding: 13px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+    text-align: center; cursor: pointer; border: none;
+    background: var(--blue-light-bg);
+    color: var(--navy);
+    transition: background .2s, color .2s;
+  }
+  .btn-plan:hover, .pricing-card.featured .btn-plan {
+    background: var(--teal); color: white;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a2d6e 100%);
+    padding: 60px 0;
+    margin-top: 100px;
+  }
+  .testimonials .section-title { color: white; }
+  .testimonials .section-label { color: var(--teal); }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .testimonial-card {
+    background: white;
+    border-radius: 14px;
+    padding: 36px 28px;
+    text-align: center;
+    position: relative;
+  }
+  .testimonial-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    border: 3px dashed var(--teal);
+    padding: 3px;
+    margin: 0 auto 16px;
+    position: relative; z-index: 1;
+  }
+  .testimonial-avatar img { border-radius: 50%; width: 100%; height: 100%; object-fit: cover; }
+  .testimonial-quote-icon {
+    position: absolute; top: 24px; right: 24px;
+    font-size: 64px; line-height: 1;
+    color: var(--teal); opacity: .12;
+    font-family: Georgia, serif;
+    pointer-events: none;
+  }
+  .testimonial-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--navy); margin-bottom: 4px;
+  }
+  .testimonial-role { font-size: 13px; color: var(--teal); font-weight: 600; margin-bottom: 16px; }
+  .testimonial-text { font-size: 14px; color: var(--body-text); line-height: 1.65; margin-bottom: 16px; }
+  .stars { color: #FFC107; font-size: 16px; letter-spacing: 2px; }
+
+  /* ── PARTNERS ── */
+  .partners { background: var(--blue-light-bg); padding: 40px 0; }
+.partners-inner {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+  .partner-logo:hover { color: var(--navy); }
+  .partners-logos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  justify-content: center;
+}
+
+.partner-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.partner-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+
+  /* ── FOOTER ── */
+  .footer { background: var(--navy); padding: 40px 0 0; }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 48px;
+  }
+  .footer-brand .logo2 { color: white; margin-bottom: 16px;}
+  .footer-brand p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; margin-bottom: 24px; margin-top: 10px;}
+  .footer-contact { display: flex; flex-direction: column; gap: 12px; }
+  .footer-contact-item { display: flex; align-items: center; gap: 12px; }
+  .footer-contact-icon {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .footer-contact-icon svg { width: 16px; height: 16px; fill: white; }
+  .footer-contact-item span { font-size: 13.5px; color: rgba(255,255,255,.7); }
+  .footer-col h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: white; margin-bottom: 20px;
+    position: relative; padding-bottom: 14px;
+  }
+  .footer-col h4::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 30px; height: 3px; background: var(--teal); border-radius: 2px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    font-size: 14px; color: rgba(255,255,255,.6);
+    display: flex; align-items: center; gap: 8px;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--teal); }
+  .footer-links a::before {
+    content: '»'; color: var(--teal); font-size: 12px;
+  }
+  .footer-newsletter p { font-size: 14px; color: rgba(255,255,255,.6); margin-bottom: 20px; line-height: 1.5; }
+  .newsletter-form { display: flex; flex-direction: column; gap: 12px; }
+  .newsletter-input {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    background: rgba(255,255,255,.06);
+    color: white; font-size: 14px;
+    outline: none; transition: border-color .2s;
+  }
+  .newsletter-input::placeholder { color: rgba(255,255,255,.35); }
+  .newsletter-input:focus { border-color: var(--teal); }
+  .btn-subscribe {
+    background: var(--teal); color: white;
+    border: none; padding: 13px 20px;
+    border-radius: 8px; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background .2s;
+  }
+
+  .btn-whatsapp{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 20px;
+  margin-top: 8px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.35);
+  background: transparent;
+  transition: all .3s ease;
+}
+
+.btn-whatsapp svg {
+  flex-shrink: 0;
+}
+
+.btn-whatsapp:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+}
+
+  .btn-email {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 20px;
+  margin-top: 8px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.35);
+  background: transparent;
+  transition: all .3s ease;
+}
+
+
+.btn-email:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.6);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp svg,
+.btn-email svg {
+  flex-shrink: 0;
+}
+  .btn-subscribe:hover { background: var(--teal-dark); }
+  .footer-bottom {
+    max-width: 1200px; margin: 56px auto 0; padding: 0 24px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px; padding-bottom: 24px;
+    flex-wrap: wrap; gap: 12px;
+    text-align: center; justify-content: center;
+  }
+  .footer-bottom p { font-size: 13px; color: rgba(255,255,255,.4); text-align: center; }
+  .footer-bottom a { color: var(--teal); }
+  .footer-socials { display: flex; gap: 10px; }
+  .footer-socials a {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.6);
+    font-size: 13px;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .footer-socials a:hover { background: var(--teal); border-color: var(--teal); color: white; }
+
+  .logo2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; font-weight: 900;
+    color: var(--navy);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;}
+
+    .logo2 img { width: 150px; height: 70px; margin-top:-30px; }
+
+    .footer-brand-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px; font-weight: 700;
+      color: #FFF;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 20px;
+    }
+
+    .btn-instagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 20px;
+  margin-top: 8px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.35);
+  background: transparent;
+  transition: all .3s ease;
+}
+
+.btn-instagram:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.6);
+  transform: translateY(-2px);
+}
+
+.btn-instagram svg {
+  flex-shrink: 0;
+}
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--off-white); }
+  .faq-list {
+    margin-top: 48px;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--gray-light);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(13,30,74,.04);
+  }
+  .faq-q {
+    width: 100%; text-align: left;
+    padding: 18px 56px 18px 22px;
+    background: white; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px; font-weight: 600;
+    color: var(--navy);
+    position: relative;
+    transition: background .25s, color .25s;
+    line-height: 1.4;
+  }
+  .faq-q::after {
+    content: '+';
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    font-size: 26px; color: var(--teal); line-height: 1;
+    transition: transform .25s, content .25s;
+    font-weight: 300;
+  }
+  .faq-item.open .faq-q { background: var(--navy); color: white; }
+  .faq-item.open .faq-q::after { content: '−'; color: var(--teal); }
+  .faq-a {
+    display: none;
+    padding: 20px 24px 22px;
+    background: white;
+    border-top: 1px solid var(--gray-light);
+    font-size: 14px; color: var(--body-text);
+    line-height: 1.75;
+  }
+  .faq-item.open .faq-a { display: block; }
+  .faq-a ul { padding-left: 20px; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+
+  /* ── CHAT BUBBLE ── */
+  .chat-bubble {
+    position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    width: 52px; height: 52px;
+    background: var(--blue-mid);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 24px rgba(13,30,74,.3);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .2s, background .2s;
+  }
+  .chat-bubble:hover { transform: scale(1.1); background: var(--teal); }
+  .chat-bubble svg { width: 24px; height: 24px; fill: white; }
+
+  /* ── TABLET (≤900px) ── */
+  @media (max-width: 900px) {
+    .section-inner { padding: 0 32px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-dots { display: none; }
+    .about-content { padding-left: 0; }
+    .about-badge {
+      position: static;
+      display: inline-block;
+      margin-top: 16px;
+      transform: none;
+    }
+    .about-img-wrap { max-width: 560px; margin: 0 auto; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials { margin-top: 40px; }
+    .hero-content { padding: 0 20px; }
+    .partners-logos { grid-template-columns: repeat(4, 1fr); }
+
+    /* navbar → hamburger a partir de 900px */
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute; top: 72px; left: 0; right: 0;
+      background: white;
+      padding: 12px 16px 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      gap: 2px; z-index: 99;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 10px 14px; }
+    .nav-links .btn-quote { text-align: center; margin-top: 8px; border-radius: 30px !important; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── CELULAR (≤640px) ── */
+  @media (max-width: 640px) {
+    /* topbar */
+    .topbar-left { display: none; }
+    .topbar-inner { justify-content: center; }
+
+    /* section */
+    .section { padding: 56px 0; }
+    .section-inner { padding: 0 16px; }
+
+    /* hero */
+    .hero-slides { height: 500px; }
+    .hero-content { padding: 0 16px; }
+    .hero-desc { margin: 14px 0 24px; font-size: 14px; }
+    .hero-btns { flex-direction: column; gap: 12px; }
+    .hero-btns .btn-primary,
+    .hero-btns .btn-outline { width: 100%; justify-content: center; }
+    .hero-arrow { width: 36px; height: 36px; font-size: 15px; }
+    .hero-arrow.prev { left: 10px; }
+    .hero-arrow.next { right: 10px; }
+
+    /* about badge */
+    .about-badge { position: static; margin-top: -40px; transform: none; display: inline-block; }
+
+    /* stats */
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .stat-num { font-size: 36px; }
+
+    /* portfolio */
+    .portfolio-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+
+    /* team */
+    .team-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    /* pricing */
+    .pricing-grid { grid-template-columns: 1fr; }
+
+    /* testimonials */
+    .testimonials-grid { grid-template-columns: 1fr; }
+
+    /* parceiros */
+    .partners-logos { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+
+    /* footer */
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 12px; }
+
+    /* cta */
+    .cta-banner { clip-path: inset(0); }
+    .cta-banner::before,
+    .cta-banner::after { display: none; }
+    .cta-inner h2 { font-size: 22px; }
+    .cta-inner .btn-primary { width: 100%; justify-content: center; }
+  }
+
+  /* ── TELAS MUITO PEQUENAS (≤400px) ── */
+  @media (max-width: 400px) {
+    .section-inner { padding: 0 12px; }
+    .hero-slides,
+    .hero-slide { min-height: 380px; }
+    .hero-content { padding: 48px 12px; }
+    .stat-num { font-size: 30px; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .partners-logos { grid-template-columns: repeat(2, 1fr); }
+    .logo-icon { width: 68px; height: 68px; }
+  }
+
+  /* ── DARK THEME ── */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --off-white: #111827;
+      --white: #0f172a;
+      --blue-light-bg: #0f172a;
+      --gray-light: #1e293b;
+      --body-text: #94a3b8;
+      --dark-text: #e2e8f0;
+      color-scheme: dark;
+    }
+    :root:not([data-theme="light"]) body { background: #0f172a; }
+    :root:not([data-theme="light"]) .navbar { background: #111827; border-color: #1e293b; }
+    :root:not([data-theme="light"]) .logo { color: #e2e8f0; }
+    :root:not([data-theme="light"]) .nav-links a { color: #cbd5e1; }
+    :root:not([data-theme="light"]) .about-badge { background: var(--teal); }
+    :root:not([data-theme="light"]) .service-card,
+    :root:not([data-theme="light"]) .team-card,
+    :root:not([data-theme="light"]) .testimonial-card,
+    :root:not([data-theme="light"]) .pricing-card,
+    :root:not([data-theme="light"]) .blog-card { background: #1e293b; border-color: #334155; }
+    :root:not([data-theme="light"]) .pricing-card.featured { background: var(--navy); }
+    :root:not([data-theme="light"]) .testimonial-name,
+    :root:not([data-theme="light"]) .service-body h3,
+    :root:not([data-theme="light"]) .blog-body h3,
+    :root:not([data-theme="light"]) .about-check { color: #e2e8f0; }
+    :root:not([data-theme="light"]) .pricing-price { color: #e2e8f0; }
+  }
+  :root[data-theme="dark"] {
+    --off-white: #111827;
+    --white: #0f172a;
+    --blue-light-bg: #0f172a;
+    --gray-light: #1e293b;
+    --body-text: #94a3b8;
+    --dark-text: #e2e8f0;
+    color-scheme: dark;
+  }
+</style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <img src="img/logo.png" alt="Logo DeGelo Ar Condicionado">
+      </div>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" class="active">Início</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#portfolio">Portfólio</a></li>
+      <li><a href="#contato">Contato</a></li>
+      <li><a href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer"class="btn-outline">Solicitar Orçamento</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-slides" id="heroSlides">
+    <!-- Slide 1 -->
+    <div class="hero-slide active">
+      <div class="hero-bg" style="background-image: url('img/img1.png')"></div>
+      <div class="hero-content">
+        <span class="hero-eyebrow">SOLUÇÕES INTELIGENTES EM CLIMATIZAÇÃO</span>
+        <h1 class="hero-title">Engenharia e tecnologia <em>em climatização</em></h1>
+        <p class="hero-desc">Soluções completas para residências de alto padrão, comércios,
+      escritórios e grandes empreendimentos. Atuamos desde o planejamento
+      da infraestrutura até a instalação e entrega dos sistemas.</p>
+
+        <div class="hero-btns">
+          <a href="#sobre" class="btn-primary">Conheça a Degelo </a>  
+          <a href="#servicos" class="btn-outline">Nossos Serviços </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Slide 2 -->
+<div class="hero-slide">
+  <div class="hero-bg" style="background-image:url('img/img2.png')"></div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">NOSSAS ESPECIALIDADES EM CLIMATIZAÇÃO</span>
+
+    <h1 class="hero-title">
+      Soluções completas em <em>climatização</em> para cada projeto
+    </h1>
+
+    <p class="hero-desc">
+      Atuamos com sistemas VRF/VRV, Split, Multi Split e SkyAir, além de infraestrutura,
+      startup e comissionamento. Desenvolvemos soluções sob medida para garantir
+      eficiência, conforto, desempenho e confiabilidade em cada ambiente.
+    </p>
+
+    <div class="hero-btns">
+      <a href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer" class="btn-primary">Solicitar Orçamento </a>
+      <a href="#portfolio" class="btn-outline">Ver Portfólio </a>
+    </div>
+  </div>
+</div>
+    <!-- Slide 3 -->
+   <div class="hero-slide">
+  <div class="hero-bg" style="background-image:url('img/img3.png')"></div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">
+      COMPROMISSO COM A EXCELÊNCIA
+    </span>
+
+    <h1 class="hero-title">
+      Excelência em <em>Cada Detalhe</em> do Seu Projeto
+    </h1>
+
+    <p class="hero-desc">
+      Trabalhamos com rigor técnico, profissionais especializados e atenção
+      aos detalhes em todas as etapas. Do planejamento à execução e ao
+      pós-venda, garantimos qualidade, segurança, eficiência e cumprimento
+      de prazos em cada projeto.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#depoimentos" class="btn-primary">
+        Depoimentos de Clientes
+      </a>
+    </div>
+  </div>
+</div>
+<div class="hero-dots" id="heroDots"></div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features" style="padding: 48px 0;">
+  <div class="section-inner">
+
+    <div class="features-grid">
+
+      <!-- 1 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18"/>
+            <path d="M5 21V5l7-2 7 2v16"/>
+            <path d="M9 21v-4h6v4"/>
+            <path d="M8 8h1"/>
+            <path d="M15 8h1"/>
+            <path d="M8 11h1"/>
+            <path d="M15 11h1"/>
+            <path d="M12 3v5"/>
+            <path d="M10 5l2-2 2 2"/>
+          </svg>
+        </div>
+
+        <h3>Engenharia Especializada</h3>
+
+        <p>
+          Projetos personalizados, dimensionamento preciso e soluções
+          eficientes para cada ambiente e necessidade.
+        </p>
+      </div>
+
+
+      <!-- 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+             <circle cx="12" cy="8" r="3"/>
+            <path d="M5 21a7 7 0 0 1 14 0"/>
+            <path d="M19 8h2"/>
+            <path d="M20 6v4"/>
+          </svg>
+        </div>
+
+        <h3>Atendimento Personalizado</h3>
+
+        <p>
+          Acompanhamento próximo e consultivo desde o primeiro contato
+          até o pós-venda, com foco na satisfação do cliente.
+        </p>
+      </div>
+
+
+      <!-- 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="17" rx="2"/>
+            <path d="M8 2v4"/>
+            <path d="M16 2v4"/>
+            <path d="M4 9h16"/>
+            <path d="M8 13l2 2 5-5"/>
+          </svg>
+        </div>
+
+        <h3>Execução Organizada</h3>
+
+        <p>
+          Planejamento detalhado, equipes qualificadas e processos bem
+          definidos para garantir agilidade, qualidade e segurança.
+        </p>
+      </div>
+
+
+      <!-- 4 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v3"/>
+            <path d="M12 18v3"/>
+            <path d="M3 12h3"/>
+            <path d="M18 12h3"/>
+            <path d="M5.6 5.6l2.1 2.1"/>
+            <path d="M16.3 16.3l2.1 2.1"/>
+            <path d="M18.4 5.6l-2.1 2.1"/>
+            <path d="M7.7 16.3l-2.1 2.1"/>
+            <path d="M9 9l6 6"/>
+            <path d="M15 9l-6 6"/>
+          </svg>
+        </div>
+
+        <h3>Acabamento de Alto Padrão</h3>
+
+        <p>
+          Instalações limpas, discretas e com acabamento impecável,
+          respeitando a estética e as características de cada ambiente.
+        </p>
+      </div>
+
+
+      <!-- 5 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 14a8 8 0 0 1 16 0"/>
+            <path d="M4 14v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 1z"/>
+            <path d="M20 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 1z"/>
+            <path d="M15 19c0 1.1-.9 2-2 2h-2"/>
+          </svg>
+        </div>
+
+        <h3>Pós-Venda Presente</h3>
+
+        <p>
+          Suporte técnico e orientação contínua para acompanhar o
+          desempenho dos sistemas e oferecer tranquilidade ao cliente.
+        </p>
+      </div>
+
+
+      <!-- 6 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <path d="M16 2v4"/>
+            <path d="M8 2v4"/>
+            <path d="M3 10h18"/>
+            <path d="M12 14v3"/>
+            <path d="M12 14l2 1"/>
+          </svg>
+        </div>
+
+        <h3>Compromisso com Prazos</h3>
+
+        <p>
+          Respeitamos o tempo do cliente e conduzimos cada etapa com
+          organização, seriedade e responsabilidade.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="sobre">
+  <div class="section-inner">
+
+    <div class="about-grid">
+
+      <div class="about-img-wrap">
+        <img src="img/img4.png" alt="Técnico Degelo realizando instalação de sistema de climatização">
+
+        <div class="about-badge">
+          <span class="big">100%</span>
+          <span class="small">Compromisso com a Qualidade</span>
+        </div>
+
+        <div class="about-dots"></div>
+      </div>
+
+      <div class="about-content">
+        <span class="section-label">Sobre a Degelo</span>
+        <h2 class="section-title"> Soluções Completas em <em>Climatização</em></h2>
+
+        <div class="underline-bar">
+          <span class="bar1"></span>
+          <span class="bar2"></span>
+        </div>
+
+        <p class="about-desc">
+          A Degelo Ar Condicionado é uma empresa especializada em soluções
+          completas de climatização para residências de alto padrão,
+          comércios, escritórios e grandes empreendimentos.
+        </p>
+
+        <p class="about-desc">
+          Atuamos desde o planejamento da infraestrutura até o
+          comissionamento e entrega dos sistemas, garantindo eficiência,
+          conforto e segurança em cada detalhe do projeto.
+        </p>
+
+        <div class="about-checks">
+
+          <div class="about-check">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1.5 15-4-4L8 11.5l2.5 2.5L16 8.5l1.5 1.5z"/>
+            </svg>
+            Planejamento completo da infraestrutura
+          </div>
+
+          <div class="about-check">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1.5 15-4-4L8 11.5l2.5 2.5L16 8.5l1.5 1.5z"/>
+            </svg>
+            Profissionais qualificados e especializados
+          </div>
+
+          <div class="about-check">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1.5 15-4-4L8 11.5l2.5 2.5L16 8.5l1.5 1.5z"/>
+            </svg>
+            Melhores práticas e tecnologias do mercado
+          </div>
+
+          <div class="about-check">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1.5 15-4-4L8 11.5l2.5 2.5L16 8.5l1.5 1.5z"/>
+            </svg>
+            Acompanhamento desde o projeto até a entrega
+          </div>
+
+        </div>
+
+        <div class="about-actions">
+
+          <a href="#servicos" class="btn-primary">
+            Conheça Nossos Serviços
+          </a>
+
+          <div class="about-phone">
+
+            <div class="about-phone-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.55 0 .24 5.31.24 11.84c0 2.09.55 4.13 1.59 5.94L.15 24l6.37-1.67a11.8 11.8 0 0 0 5.56 1.41h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.41-8.42zM12.09 21.74h-.01a9.83 9.83 0 0 1-5.01-1.37l-.36-.21-3.78.99 1.01-3.69-.23-.38a9.84 9.84 0 0 1-1.51-5.24c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.89 6.96c0 5.44-4.42 9.86-9.84 9.86zm5.41-7.39c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.23-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.07-.13-.27-.2-.57-.35z"/>
+              </svg>
+            </div>
+
+            <div class="about-phone-text">
+              <small>Fale com nossa equipe</small>
+              <strong>(11) 97085-2238</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SERVICES -->
+<section class="section services" id="servicos">
+  <div class="section-inner">
+
+    <div class="section-center">
+      <span class="section-label">Nossas Especialidades</span>
+
+      <h2 class="section-title">
+        Soluções Completas em <em>Climatização</em>
+      </h2>
+
+      <div class="underline-bar center">
+        <span class="bar1"></span>
+        <span class="bar2"></span>
+      </div>
+    </div>
+
+
+    <div class="services-grid">
+
+      <!-- VRF / VRV -->
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img 
+            src="img/img5.png" alt="Sistema VRF e VRV"
+          >
+
+          <div class="service-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="3" width="14" height="18" rx="2"/>
+              <path d="M9 7h6"/>
+              <path d="M9 11h6"/>
+              <path d="M9 15h2"/>
+              <path d="M14 15h1"/>
+              <path d="M9 18h6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="service-body">
+          <h3>VRF / VRV</h3>
+
+          <p>
+            Sistemas de fluxo de refrigerante variável com alta eficiência
+            e flexibilidade de controle individualizado, ideais para grandes
+            edifícios e múltiplos ambientes.
+          </p>
+        </div>
+      </div>
+
+      <!-- SKY AIR -->
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img src="img/img6.png" alt="Sistema SkyAir">
+
+          <div class="service-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="6" width="18" height="12" rx="2"/>
+              <path d="M7 10h10"/>
+              <path d="M7 14h6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="service-body">
+          <h3>SkyAir</h3>
+
+          <p>
+            Instalação versátil para ambientes que exigem silêncio,
+            estética superior, conforto e distribuição eficiente do ar,
+            com alto desempenho e praticidade.
+          </p>
+        </div>
+      </div>
+
+
+      <!-- MULTI SPLIT -->
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img 
+            src="img/img7.png" alt="Sistema Multi Split">
+
+          <div class="service-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="7" height="5" rx="1"/>
+              <rect x="14" y="5" width="7" height="5" rx="1"/>
+              <rect x="8.5" y="14" width="7" height="5" rx="1"/>
+              <path d="M6.5 10v2h11v-2"/>
+              <path d="M12 12v2"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="service-body">
+          <h3>Multi Split</h3>
+
+          <p>
+            Conforto personalizado para vários ambientes com apenas uma
+            unidade externa, proporcionando economia de energia e
+            praticidade na instalação.
+          </p>
+        </div>
+      </div>
+
+
+      <!-- SPLIT -->
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img 
+            src="img/img8.png" alt="Sistema Split">
+
+          <div class="service-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="6" width="18" height="8" rx="2"/>
+              <path d="M7 10h10"/>
+              <path d="M8 17h8"/>
+              <path d="M9 20h6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="service-body">
+          <h3>Split</h3>
+
+          <p>
+            Soluções para ambientes residenciais e comerciais que unem
+            qualidade, eficiência energética e design discreto para
+            diferentes tamanhos de ambiente.
+          </p>
+        </div>
+      </div>
+
+
+      <!-- INFRAESTRUTURA -->
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img 
+            src="img/img9.png" alt="Infraestrutura para sistemas de climatização" >
+
+          <div class="service-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 7h6"/>
+              <path d="M14 7h6"/>
+              <path d="M10 7h4"/>
+              <circle cx="4" cy="7" r="2"/>
+              <circle cx="20" cy="7" r="2"/>
+              <path d="M12 9v5"/>
+              <path d="M7 14h10"/>
+              <path d="M7 14v4"/>
+              <path d="M17 14v4"/>
+              <circle cx="7" cy="20" r="2"/>
+              <circle cx="17" cy="20" r="2"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="service-body">
+          <h3>Infraestrutura</h3>
+
+          <p>
+            Planejamento e execução de tubulações, isolamento térmico,
+            suportes e fixações de acordo com as especificações do
+            fabricante, garantindo segurança e durabilidade.
+          </p>
+        </div>
+      </div>
+
+
+      <!-- STARTUP E COMISSIONAMENTO -->
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img 
+            src="img/img10.png" alt="Startup e comissionamento de sistemas">
+
+          <div class="service-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7v5l3 2"/>
+              <path d="M8 3l-2-1"/>
+              <path d="M16 3l2-1"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="service-body">
+          <h3>Startup e Comissionamento</h3>
+
+          <p>
+            Testes, regulagens e comissionamento completo para garantir
+            o desempenho máximo, a eficiência do sistema e a satisfação
+            do cliente.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section stats">
+  <div class="section-inner">
+
+    <div class="stats-grid">
+
+      <!-- Projetos Concluídos -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18"/>
+            <path d="M5 21V5l7-3 7 3v16"/>
+            <path d="M9 21v-5h6v5"/>
+            <path d="M8 8h1"/>
+            <path d="M15 8h1"/>
+            <path d="M8 11h1"/>
+            <path d="M15 11h1"/>
+          </svg>
+        </div>
+
+        <div class="stat-num">
+          <span class="count" data-target="1560">0</span><sup>+</sup>
+        </div>
+
+        <div class="stat-label">
+          Projetos Concluídos
+        </div>
+      </div>
+
+
+      <!-- Clientes Atendidos -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="8" r="3"/>
+            <path d="M3 20a6 6 0 0 1 12 0"/>
+            <circle cx="17" cy="9" r="2.5"/>
+            <path d="M16 14a5 5 0 0 1 5 5"/>
+          </svg>
+        </div>
+
+        <div class="stat-num">
+          <span class="count" data-target="2340">0</span><sup>+</sup>
+        </div>
+
+        <div class="stat-label">
+          Clientes Atendidos
+        </div>
+      </div>
+
+
+      <!-- Anos de Experiência -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <path d="M16 2v4"/>
+            <path d="M8 2v4"/>
+            <path d="M3 10h18"/>
+            <circle cx="12" cy="15" r="3"/>
+            <path d="M12 13v2l1.5 1"/>
+          </svg>
+        </div>
+
+        <div class="stat-num">
+          <span class="count" data-target="14">0</span><sup>+</sup>
+        </div>
+
+        <div class="stat-label">
+          Anos de Experiência
+        </div>
+      </div>
+
+
+      <!-- Compromisso com a Qualidade -->
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3L4 6v5c0 5 3.4 9.5 8 10.8 4.6-1.3 8-5.8 8-10.8V6l-8-3z"/>
+            <path d="M8.5 12l2.2 2.2 4.8-5"/>
+          </svg>
+        </div>
+
+        <div class="stat-num">
+          <span class="count" data-target="100">0</span><sup>%</sup>
+        </div>
+
+        <div class="stat-label">
+          Compromisso com a Qualidade
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section portfolio" id="portfolio">
+  <div class="section-inner">
+    <div class="portfolio-header">
+      <div>
+        <span class="section-label">Portfólio</span>
+        <h2 class="section-title">Explore Nosso <em>Portfólio</em></h2>
+      </div>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid">
+      <div class="portfolio-item" data-cat="instalacao">
+        <a href="portfolio/port1.png" target="_blank" class="portfolio-item" data-cat="instalacao">
+          <img src="portfolio/port1.png" alt="Instalação Sky Air">
+          <div class="portfolio-overlay"><span>Instalação Sky Air</span></div>
+        </a>
+      </div>
+      <div class="portfolio-item" data-cat="instalacao">
+        <a href="portfolio/port2.png" target="_blank" class="portfolio-item" data-cat="instalacao">
+          <img src="portfolio/port2.png" alt="Instalação sistema VRF/VRV">
+          <div class="portfolio-overlay"><span>Instalação Sistema VRF/VRV</span></div>
+        </a>
+      </div>
+      <div class="portfolio-item" data-cat="instalacao">
+        <a href="portfolio/port3.png" target="_blank" class="portfolio-item" data-cat="instalacao">
+          <img src="portfolio/port3.png " alt="Instalação Split">
+          <div class="portfolio-overlay"><span>Instalação Split</span></div>
+        </a>
+      </div>
+      <div class="portfolio-item" data-cat="manutencao">
+        <a href="portfolio/port4.png" target="_blank" class="portfolio-item" data-cat="manutencao">
+          <img src="portfolio/port4.png" alt="Manutenção e Higienização">
+          <div class="portfolio-overlay"><span>Manutenção e Higienização</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section team" id="equipe">
+  <div class="section-inner">
+    <div class="section-center">
+      <span class="section-label">Nossa Equipe</span>
+      <h2 class="section-title">Conheça Nossos <em>Especialistas</em></h2>
+      <div class="underline-bar center"><span class="bar1"></span><span class="bar2"></span></div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-img">
+          <img src="equipe/Ceo.png" alt="CEO Degelo Ar Condicionado">
+        </div>
+        <div class="team-info">
+          <h3>Felipe Maciel</h3>
+          <p>CEO & Fundador</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-img">
+          <img src="equipe/admin.png" alt="Marisa Ferreira">
+        </div>
+        <div class="team-info">
+          <h3>Marisa Ferreira</h3>
+          <p>Administração & Marketing</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-img">
+          <img src="equipe/equipe.png" alt="Equipe Técnica Degelo">
+        </div>
+        <div class="team-info">
+          <h3>Equipe Técnica</h3>
+          <p>Técnicos Especializados</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+
+<section class="section faq-section" id="faq">
+  <div class="section-inner">
+    <div class="section-center">
+      <span class="section-label">Tire Suas Dúvidas</span>
+      <h2 class="section-title">Perguntas <em>Frequentes</em></h2>
+      <div class="underline-bar center"><span class="bar1"></span><span class="bar2"></span></div>
+    </div>
+
+<div class="faq-list">
+
+  <div class="faq-item">
+    <button class="faq-q">Como escolher o ar-condicionado certo para meu espaço?</button>
+    <div class="faq-a">
+      <p>A escolha do equipamento depende de diversos fatores, como <strong>tamanho do ambiente, quantidade de pessoas, incidência solar, número de equipamentos eletrônicos e finalidade do espaço</strong>. Também é importante considerar a capacidade adequada em BTU/h para evitar consumo excessivo e garantir um bom desempenho. Nossa equipe avalia as características do ambiente e indica a solução mais adequada para cada projeto.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">Que tipos de ar-condicionado existem?</button>
+    <div class="faq-a">
+      <p>Existem diferentes sistemas de climatização para residências, comércios, escritórios, indústrias e outros ambientes. Entre os principais estão:</p>
+      <ul>
+        <li><strong>Split e Multi-Split</strong> — indicados para residências, escritórios e pequenos estabelecimentos comerciais.</li>
+        <li><strong>Cassete</strong> — ideal para ambientes comerciais e espaços que precisam de uma distribuição de ar mais uniforme.</li>
+        <li><strong>Piso-Teto</strong> — indicado para ambientes amplos que necessitam de maior capacidade de climatização.</li>
+        <li><strong>Ar-condicionado Dutado</strong> — permite climatizar vários ambientes por meio de uma rede de dutos.</li>
+        <li><strong>VRF/VRV</strong> — sistemas de climatização centralizados, indicados principalmente para projetos de médio e grande porte.</li>
+      </ul>
+      <p>A escolha depende das características e necessidades de cada projeto.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">O ar-condicionado também aquece o ambiente?</button>
+    <div class="faq-a">
+      <p>Sim. Alguns modelos possuem a função <strong>quente e frio</strong>, permitindo tanto resfriar quanto aquecer o ambiente. Esses equipamentos utilizam um sistema de <strong>bomba de calor</strong> para realizar o aquecimento. A eficiência e o consumo dependem do modelo, das condições de operação e da temperatura desejada.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">O ar-condicionado renova o ar do ambiente?</button>
+    <div class="faq-a">
+      <p>Na maioria dos aparelhos de expansão direta, como os modelos Split, <strong>não há renovação de ar externo</strong>. O equipamento normalmente recircula o ar do próprio ambiente, realizando processos como resfriamento, aquecimento, filtragem e desumidificação. Quando é necessária a renovação do ar, deve ser previsto um <strong>sistema de ventilação e tomada de ar externo</strong> adequado ao projeto.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">Por que é importante renovar o ar dos ambientes?</button>
+    <div class="faq-a">
+      <p>A renovação do ar contribui para a <strong>qualidade do ar interior</strong>, ajudando a controlar a concentração de CO₂, odores e outros contaminantes. Em ambientes de uso público e coletivo climatizados artificialmente, a legislação e as referências técnicas brasileiras estabelecem requisitos relacionados à qualidade do ar e à renovação. A necessidade e a taxa de renovação devem ser definidas de acordo com as características e ocupação de cada ambiente.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">O ar-condicionado provoca ou piora alergias?</button>
+    <div class="faq-a">
+      <p>O ar-condicionado não é, por si só, responsável por causar alergias. Entretanto, <strong>filtros sujos e falta de manutenção</strong> podem favorecer o acúmulo de poeira e outras partículas no sistema. A limpeza adequada dos filtros e a manutenção preventiva ajudam a manter o equipamento em boas condições de funcionamento e contribuem para uma melhor qualidade do ar.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">O ar-condicionado consome muita energia elétrica?</button>
+    <div class="faq-a">
+      <p>Não necessariamente. Os aparelhos modernos, especialmente os modelos com tecnologia <strong>Inverter</strong>, podem oferecer maior eficiência energética. No Brasil, os condicionadores de ar são avaliados pelo <strong>Inmetro</strong> por meio do Programa Brasileiro de Etiquetagem (PBE), que permite consultar informações de consumo e eficiência dos diferentes modelos. Além disso, o dimensionamento correto, a temperatura configurada, a qualidade da instalação e a manutenção influenciam diretamente no consumo de energia. </p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">Qual a temperatura ideal para regular o ar-condicionado?</button>
+    <div class="faq-a">
+      <p>A temperatura ideal depende do ambiente, da atividade realizada e das condições externas. Como referência para ambientes climatizados, recomenda-se evitar temperaturas extremas e buscar uma configuração que proporcione conforto sem exigir funcionamento excessivo do equipamento.</p>
+      <p>Em projetos comerciais e corporativos, a temperatura de operação deve considerar as características do ambiente e os critérios técnicos aplicáveis. A própria referência da ANVISA para qualidade do ar interior apresenta faixas recomendáveis para condições de verão e inverno. </p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">O que significa BTU/h no ar-condicionado?</button>
+    <div class="faq-a">
+      <p><strong>BTU/h</strong> é uma unidade utilizada para indicar a capacidade de refrigeração ou aquecimento de um aparelho de ar-condicionado. Quanto maior a carga térmica do ambiente, maior poderá ser a capacidade necessária. A escolha não deve ser feita apenas pelo tamanho do espaço: incidência solar, número de pessoas, equipamentos eletrônicos, isolamento e utilização do ambiente também devem ser considerados.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">Quem pode instalar ar-condicionado no Brasil?</button>
+    <div class="faq-a">
+      <p>A instalação deve ser realizada por <strong>profissionais capacitados e seguindo as normas técnicas e orientações do fabricante</strong>. Em sistemas que utilizam fluidos refrigerantes, é importante que o serviço seja executado com equipamentos e procedimentos adequados para evitar vazamentos, garantir a segurança e preservar o desempenho do sistema. Em instalações elétricas e projetos de maior complexidade, também devem ser observados os requisitos técnicos e profissionais aplicáveis.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">Com que frequência devo fazer a manutenção do ar-condicionado?</button>
+    <div class="faq-a">
+      <p>A frequência da manutenção depende do <strong>tipo de equipamento, intensidade de uso, ambiente e condições de operação</strong>. A limpeza dos filtros deve seguir as orientações do fabricante e pode precisar ser realizada com maior frequência em ambientes com muita poeira ou utilização intensa.</p>
+      <p>Em sistemas de climatização de uso público e coletivo, podem existir requisitos específicos de manutenção e controle da qualidade do ar. A <strong>Lei nº 13.589/2018</strong> estabelece a obrigatoriedade de PMOC para determinados ambientes climatizados artificialmente de uso público e coletivo. </p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">O que é PMOC e quando ele é necessário?</button>
+    <div class="faq-a">
+      <p>O <strong>PMOC — Plano de Manutenção, Operação e Controle</strong> é um conjunto de procedimentos destinado a manter os sistemas de climatização em condições adequadas de funcionamento e contribuir para a qualidade do ar interior.</p>
+      <p>No Brasil, a <strong>Lei nº 13.589/2018</strong> estabelece a obrigatoriedade do PMOC para edifícios de uso público e coletivo que possuem ambientes de ar interior climatizado artificialmente, observando os requisitos técnicos e regulamentações aplicáveis. </p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">A Degelo realiza manutenção e instalação de sistemas de climatização?</button>
+    <div class="faq-a">
+      <p>Sim. A <strong>Degelo Ar Condicionados</strong> atua com soluções de climatização, incluindo instalação, manutenção e serviços técnicos para diferentes tipos de equipamentos e sistemas. Nossa equipe avalia as características de cada ambiente para oferecer uma solução adequada às necessidades do cliente.</p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-banner" id="orcamento">
+  <div class="cta-inner">
+    <h2>Oferecemos Serviços de <em>Qualidade</em> Garantida</h2>
+    <p>Nossa equipe está pronta para atender você com agilidade, transparência e os melhores preços.</p>
+    <a href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-flex; margin: 0 auto;">Fale Conosco Agora </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-center">
+      <span class="section-label">Depoimentos</span>
+      <h2 class="section-title" style="color:white">O Que Nossos <em>Clientes</em> Dizem</h2>
+      <div class="underline-bar center"><span class="bar1"></span><span class="bar2"></span></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote-icon">"</div>
+        <div class="testimonial-avatar">
+          <img src="img/clt1.png" alt="Maria Silva">
+        </div>
+        <div class="testimonial-name">Maria Silva</div>
+        <div class="testimonial-role">Cliente Residencial</div>
+        <p class="testimonial-text">Excelente serviço! O técnico foi muito profissional, explicou tudo detalhadamente e deixou o ar-condicionado funcionando perfeitamente. Recomendo a Degelo com toda a confiança.</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote-icon">"</div>
+        <div class="testimonial-avatar">
+          <img src="img/clt2.png" alt="João Carvalho">
+        </div>
+        <div class="testimonial-name">João Carvalho</div>
+        <div class="testimonial-role">Arquiteto</div>
+        <p class="testimonial-text">Contratamos a Degelo para uma obra de grande porte e ficamos muito satisfeitos com a agilidade, comprometimento e qualidade dos serviços. Uma parceria que conquistou nossa confiança e preferência.</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote-icon">"</div>
+        <div class="testimonial-avatar">
+          <img src="img/clt3.png" alt="Frederico Mendes">
+        </div>
+        <div class="testimonial-name">Frederico Mendes</div>
+        <div class="testimonial-role">Empresário</div>
+        <p class="testimonial-text">Temos contrato com a Degelo para reparos, manutenção e limpeza, e nunca tivemos problemas. O serviço é de alta qualidade e nosso sistema de climatização se mantém eficiente e confiável.
+</p>
+        <div class="stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<div class="partners">
+  <section class="partners-section" id="parceiros">
+  <div class="section-inner">
+    <div class="section-center">
+      <h2 class="section-title"> <em>Parceiros</em></h2>
+      <div class="underline-bar center"><span class="bar1"></span><span class="bar2"></span></div>
+    </div>
+  <div class="partners-inner">
+    <div class="partners-logos">
+            <div class="partner-logo">
+        <img src="parceiros/daikin.png" alt="Daikin">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/samsung.png" alt="Samsung">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/lg.png" alt="LG">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/fujitsu.png" alt="Fujitsu">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/midea.png" alt="Midea">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/springer.png" alt="Springer Carrier">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/hitachi.png" alt="Hitachi">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/elgin.png" alt="Elgin">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/gree.png" alt="Gree">
+      </div>
+
+      <div class="partner-logo">
+        <img src="parceiros/hisense.png" alt="Hisense">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" id="contato">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo2" style="margin-bottom:16px">
+        <div class="logo2-icon">
+          <img src="img/logo2.png" alt="Degelo Ar Condicionado">
+        </div>
+      </div>
+      <div class="footer-brand-info">
+        <div class="footer-brand-title"> Degelo Ar Condicionado</div>
+        <p>Soluções completas em climatização para projetos de alto padrão, empresas e grandes empreendimentos. Precisão, eficiência e excelência em cada etapa.</p>
+      </div>
+      <div class="footer-contact">
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+          <span>(11) 97085-2238</span>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg></div>
+          <span>Sede: São Paulo – SP</span>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+          <span>comercial.degeloarcondicionado@gmail.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Links Rápidos</h4>
+      <ul class="footer-links">
+        <li><a href="#sobre">Sobre Nós</a></li>
+        <li><a href="#faq">Perguntas Frequentes</a></li>
+        <li><a href="termos.html">Termos de Serviço</a></li>
+        <li><a href="privacidade.html">Política de Privacidade</a></li>
+        <li><a href="#equipe">Nossa Equipe</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Nossas Especialidades</h4>
+      <ul class="footer-links">
+        <li><a href="#portfolio">Instalações VRF/VRV</a></li>
+        <li><a href="#portfolio">SkyAir, Splits</a></li>
+        <li><a href="#portfolio">Manutenção Preventiva e Corretiva</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-newsletter">
+  <h4>Contato</h4>
+
+  <p>
+    Entre em contato conosco para mais informações sobre nossos serviços.
+  </p>
+
+  <a href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer"class="btn-whatsapp">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+      <path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.55 0 .24 5.31.24 11.84c0 2.09.55 4.13 1.59 5.94L.15 24l6.37-1.67a11.8 11.8 0 0 0 5.56 1.41h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.41-8.42zM12.09 21.74h-.01a9.83 9.83 0 0 1-5.01-1.37l-.36-.21-3.78.99 1.01-3.69-.23-.38a9.84 9.84 0 0 1-1.51-5.24c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.89 6.96c0 5.44-4.42 9.86-9.84 9.86zm5.41-7.39c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.23-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.18.2-.3.2-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.07-.13-.27-.2-.57-.35z"/>
+    </svg>
+<span>Falar pelo WhatsApp</span>
+  </a>
+   <a href="mailto:comercial.degeloarcondicionado@gmail.com"class="btn-email">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+         stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <path d="m3 7 9 6 9-6"/>
+    </svg>
+    <span>Enviar e-mail</span>
+  </a>
+  <a 
+  href="https://www.instagram.com/degeloar/" 
+  target="_blank"
+  rel="noopener noreferrer"
+  class="btn-instagram"
+>
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+       stroke="currentColor" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="1"/>
+  </svg>
+
+  <span>Nosso Instagram</span>
+</a>
+  </div>
+</div>
+  <div class="footer-bottom">
+    <p>© Copyright 2026 <a href="#">Degelo - Ar Condicionado</a> - Por um ambiente melhor. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- CHAT BUBBLE -->
+<a class="chat-bubble" id="chatBubble" href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer" title="Fale conosco no WhatsApp" aria-label="Abrir chat no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.55 0 .24 5.31.24 11.84c0 2.09.55 4.13 1.59 5.94L.15 24l6.37-1.67a11.8 11.8 0 0 0 5.56 1.41h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.41-8.42zM12.09 21.74h-.01a9.83 9.83 0 0 1-5.01-1.37l-.36-.21-3.78.99 1.01-3.69-.23-.38a9.84 9.84 0 0 1-1.51-5.24c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.89 6.96c0 5.44-4.42 9.86-9.84 9.86zm5.41-7.39c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.23-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.18.2-.3.2-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.07-.13-.27-.2-.57-.35z"/>
+  </svg>
+</a>
+
+<script>
+  // Hero slider — heroGoTo definido primeiro para estar disponível nos onclick
+  window.heroCur = 0;
+  window.heroGoTo = function(n) {
+    var sl = document.querySelectorAll('.hero-slide');
+    var dc = document.getElementById('heroDots');
+    sl[window.heroCur].classList.remove('active');
+    if (dc && dc.children[window.heroCur]) dc.children[window.heroCur].classList.remove('active');
+    window.heroCur = ((n % sl.length) + sl.length) % sl.length;
+    sl[window.heroCur].classList.add('active');
+    if (dc && dc.children[window.heroCur]) dc.children[window.heroCur].classList.add('active');
+  };
+  // Criar dots e iniciar autoplay após DOM pronto
+  (function() {
+    var dotsEl = document.getElementById('heroDots');
+    var slides = document.querySelectorAll('.hero-slide');
+    if (dotsEl && slides.length) {
+      for (var i = 0; i < slides.length; i++) {
+        var d = document.createElement('button');
+        d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+        (function(idx){ d.onclick = function(){ window.heroGoTo(idx); }; })(i);
+        dotsEl.appendChild(d);
+      }
+    }
+    setInterval(function(){ window.heroGoTo(window.heroCur + 1); }, 5000);
+  })();
+
+  // Hamburger menu
+  document.getElementById('hamburger').addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Portfolio filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const filter = this.dataset.filter;
+      document.querySelectorAll('[data-cat]').forEach(item => {
+        if (filter === 'all' || item.dataset.cat === filter) {
+          item.style.opacity = '1';
+          item.style.pointerEvents = 'auto';
+        } else {
+          item.style.opacity = '0';
+          item.style.pointerEvents = 'none';
+        }
+      });
+    });
+  });
+
+  // Counter animation
+  function animateCount(el) {
+    const target = +el.dataset.target;
+    const duration = 1800;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const counters = document.querySelectorAll('.count');
+  let counted = false;
+  const statsSection = document.querySelector('.stats');
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !counted) {
+      counted = true;
+      counters.forEach(animateCount);
+    }
+  }, { threshold: 0.4 });
+  if (statsSection) observer.observe(statsSection);
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = this.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+
+  // Smooth nav scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>

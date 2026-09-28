@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termos de Serviço – Degelo Ar Condicionado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --teal: #1BBFC7;
+    --teal-dark: #14A0A8;
+    --navy: #0D1E4A;
+    --blue-mid: #1A3D8F;
+    --blue-light-bg: #EEF4FF;
+    --white: #FFFFFF;
+    --off-white: #F7FAFF;
+    --gray-text: #6B7A99;
+    --gray-light: #e5eaf5;
+    --dark-text: #0D1E4A;
+    --body-text: #4A5568;
+    color-scheme: light;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--white);
+    color: var(--body-text);
+    overflow-x: hidden;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(13,30,74,.07);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px; font-weight: 800;
+    color: var(--navy);
+  }
+  .logo-icon {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--navy); padding: 6px 14px; border-radius: 4px;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .btn-quote {
+    background: var(--teal);
+    color: white !important;
+    padding: 10px 22px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    display: flex; align-items: center; gap: 6px;
+    transition: background .2s !important;
+  }
+  .btn-quote:hover { background: var(--teal-dark) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
+    padding: 60px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(27,191,199,.08);
+  }
+  .page-hero::after {
+    content: '';
+    position: absolute; bottom: -40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(27,191,199,.06);
+  }
+  .page-hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .page-hero-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 14px; display: block;
+  }
+  .page-hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 800; color: white;
+    line-height: 1.2; text-wrap: balance;
+    margin-bottom: 14px;
+  }
+  .page-hero h1 em { color: var(--teal); font-style: normal; }
+  .page-hero p { color: rgba(255,255,255,.7); font-size: 14px; }
+
+  /* ── TERMS CONTENT ── */
+  .terms-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+  .terms-wrap h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 19px; font-weight: 800;
+    color: var(--navy);
+    margin: 40px 0 12px;
+    padding-left: 14px;
+    border-left: 3px solid var(--teal);
+    line-height: 1.3;
+  }
+  .terms-wrap h2:first-child { margin-top: 0; }
+  .terms-wrap p {
+    color: var(--body-text);
+    font-size: 14.5px;
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+  .terms-wrap ul {
+    padding-left: 22px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .terms-wrap ul li {
+    color: var(--body-text);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  .terms-wrap ul li::marker { color: var(--teal); }
+  .terms-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    background: var(--off-white);
+    border-radius: 10px;
+    border: 1px solid var(--gray-light);
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: var(--gray-text);
+  }
+  .terms-meta strong { color: var(--navy); }
+  .terms-divider {
+    border: none;
+    border-top: 1px solid var(--gray-light);
+    margin: 32px 0;
+  }
+  .terms-contact-box {
+    background: linear-gradient(135deg, var(--navy), var(--blue-mid));
+    border-radius: 14px;
+    padding: 32px 28px;
+    margin-top: 48px;
+    text-align: center;
+  }
+  .terms-contact-box p { color: rgba(255,255,255,.75); font-size: 14px; margin-bottom: 20px; }
+  .terms-contact-box a {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal); color: white;
+    padding: 12px 28px; border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+    transition: background .2s;
+  }
+  .terms-contact-box a:hover { background: var(--teal-dark); }
+  .terms-contact-box h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px; font-weight: 800;
+    color: white; margin-bottom: 10px;
+  }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--navy); padding: 40px 0 0; }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 48px;
+  }
+  .footer-brand .logo2 { color: white; margin-bottom: 16px; }
+  .footer-brand p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; margin-bottom: 24px; margin-top: 10px; }
+  .footer-contact { display: flex; flex-direction: column; gap: 12px; }
+  .footer-contact-item { display: flex; align-items: center; gap: 12px; }
+  .footer-contact-icon {
+    width: 36px; height: 36px;
+    background: var(--teal); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .footer-contact-icon svg { width: 16px; height: 16px; fill: white; }
+  .footer-contact-item span { font-size: 13.5px; color: rgba(255,255,255,.7); }
+  .footer-col h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: white; margin-bottom: 20px;
+    position: relative; padding-bottom: 14px;
+  }
+  .footer-col h4::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 30px; height: 3px; background: var(--teal); border-radius: 2px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    font-size: 14px; color: rgba(255,255,255,.6);
+    display: flex; align-items: center; gap: 8px;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--teal); }
+  .footer-links a::before { content: '»'; color: var(--teal); font-size: 12px; }
+  .footer-newsletter p { font-size: 14px; color: rgba(255,255,255,.6); margin-bottom: 20px; line-height: 1.5; }
+  .btn-whatsapp, .btn-email, .btn-instagram {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 13px 20px; margin-top: 8px;
+    border-radius: 40px; text-decoration: none;
+    font-size: 13px; font-weight: 700; color: #fff;
+    border: 1px solid rgba(255,255,255,.35);
+    background: transparent; transition: all .3s ease;
+    box-sizing: border-box;
+  }
+  .btn-whatsapp svg, .btn-email svg, .btn-instagram svg { flex-shrink: 0; }
+  .btn-whatsapp:hover { background: #20bd5a; }
+  .btn-email:hover, .btn-instagram:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.6); }
+  .logo2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; font-weight: 900;
+    color: var(--navy); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .logo2 img { width: 150px; height: 70px; margin-top: -30px; }
+  .footer-brand-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px; font-weight: 700; color: #FFF;
+    display: inline-flex; align-items: center; gap: 20px;
+  }
+  .footer-bottom {
+    max-width: 1200px; margin: 56px auto 0; padding: 24px 24px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    display: flex; justify-content: center; align-items: center;
+    flex-wrap: wrap; gap: 12px; text-align: center;
+  }
+  .footer-bottom p { font-size: 13px; color: rgba(255,255,255,.4); text-align: center; }
+  .footer-bottom a { color: var(--teal); }
+
+  /* ── CHAT BUBBLE ── */
+  .chat-bubble {
+    position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    width: 52px; height: 52px;
+    background: var(--blue-mid); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 24px rgba(13,30,74,.3);
+    cursor: pointer; transition: transform .2s, background .2s;
+  }
+  .chat-bubble:hover { transform: scale(1.1); background: var(--teal); }
+  .chat-bubble svg { width: 24px; height: 24px; fill: white; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  }
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none; flex-direction: column;
+      position: absolute; top: 72px; left: 0; right: 0;
+      background: white; padding: 12px 16px 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      gap: 2px; z-index: 99;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 10px 14px; }
+    .nav-links .btn-quote { text-align: center; margin-top: 8px; border-radius: 30px !important; }
+    .hamburger { display: flex; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; }
+    .terms-wrap { padding: 40px 16px 60px; }
+    .page-hero { padding: 44px 16px; }
+    .page-hero::before, .page-hero::after { display: none; }
+    .terms-contact-box { padding: 24px 16px; }
+    .terms-wrap h2 { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <img src="img/logo.png" alt="Logo Degelo Ar Condicionado">
+      </div>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="index.html#sobre">Sobre</a></li>
+      <li><a href="index.html#servicos">Serviços</a></li>
+      <li><a href="index.html#portfolio">Portfólio</a></li>
+      <li><a href="index.html#contato">Contato</a></li>
+      <li><a href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer" class="btn-quote">Solicitar Orçamento</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-hero-label">Documentação Legal</span>
+    <h1>Termos de <em>Serviço</em></h1>
+    <p>Leia com atenção os termos que regem a contratação dos nossos serviços.</p>
+  </div>
+</div>
+
+<!-- TERMS CONTENT -->
+<div class="terms-wrap">
+
+  <div class="terms-meta">
+    <span><strong>Empresa:</strong> Degelo Ar Condicionado</span>
+    <span><strong>Atualizado em:</strong> Setembro de 2026</span>
+    <span><strong>Versão:</strong> 1.0</span>
+  </div>
+
+  <h2>1. Introdução</h2>
+  <p>A <strong>Degelo Ar Condicionado</strong> oferece serviços especializados de instalação, manutenção preventiva e corretiva, reparo e comissionamento de sistemas de ar condicionado e climatização. Ao utilizar nosso site e/ou contratar nossos Serviços, você concorda plenamente com estes Termos e Condições.</p>
+  <p>Caso tenha dúvidas sobre qualquer cláusula, entre em contato conosco antes de prosseguir.</p>
+
+  <hr class="terms-divider">
+
+  <h2>2. Aceitação dos Termos</h2>
+  <p>Ao usar nosso site ou contratar nossos Serviços, você confirma que:</p>
+  <ul>
+    <li>Leu e entendeu integralmente estes Termos;</li>
+    <li>Concorda em cumprir todas as disposições aqui estabelecidas;</li>
+    <li>Possui capacidade legal para celebrar contratos de acordo com a legislação brasileira.</li>
+  </ul>
+  <p>Se você não concordar com estes Termos, pedimos que não utilize o site nem contrate nossos Serviços.</p>
+
+  <hr class="terms-divider">
+
+  <h2>3. Descrição dos Serviços</h2>
+  <p>A Degelo Ar Condicionado oferece, entre outros, os seguintes serviços:</p>
+  <ul>
+    <li>Instalação de novos sistemas de ar condicionado (Split, Multi-Split, VRF/VRV, SkyAir, Duto);</li>
+    <li>Manutenção preventiva periódica de equipamentos de climatização;</li>
+    <li>Manutenção corretiva e reparo de aparelhos com defeito;</li>
+    <li>Startup, comissionamento e entrega técnica de sistemas;</li>
+    <li>Projetos de infraestrutura e cabeamento para climatização.</li>
+  </ul>
+  <p>Nos esforçamos para fornecer Serviços de alta qualidade, com profissionalismo e ética em cada etapa. No entanto, não garantimos disponibilidade ininterrupta dos Serviços em situações de força maior, restrições operacionais ou condições alheias ao nosso controle.</p>
+
+  <hr class="terms-divider">
+
+  <h2>4. Orçamentos, Preços e Pagamentos</h2>
+  <p>Os preços dos Serviços são apresentados mediante orçamento formal, que tem validade de <strong>7 (sete) dias corridos</strong> a partir da data de emissão, salvo indicação em contrário no documento.</p>
+  <p>Após aprovação do orçamento pelo cliente, os valores ficam fixados para o escopo acordado. Serviços adicionais solicitados durante a execução serão orçados separadamente.</p>
+  <p>Aceitamos as seguintes formas de pagamento: dinheiro, transferência bancária (TED/PIX), cartão de crédito e débito. Condições específicas de parcelamento ou prazo serão definidas no orçamento.</p>
+
+  <hr class="terms-divider">
+
+  <h2>5. Agendamento e Cancelamento</h2>
+  <p>Os Serviços devem ser agendados previamente por telefone, WhatsApp ou e-mail. Ao confirmar o agendamento, o cliente se compromete a garantir o acesso ao local e as condições necessárias para a execução do serviço.</p>
+  <p>Cancelamentos ou reagendamentos devem ser comunicados com <strong>pelo menos 24 horas de antecedência</strong>, sem qualquer penalidade. Cancelamentos com menos de 24 horas de antecedência poderão estar sujeitos à cobrança de taxa de deslocamento ou hora técnica, a ser informada no momento do agendamento.</p>
+
+  <hr class="terms-divider">
+
+  <h2>6. Garantia dos Serviços</h2>
+  <p>A Degelo Ar Condicionado oferece garantia sobre peças e mão de obra em todos os serviços prestados, conforme as condições a seguir:</p>
+  <ul>
+    <li><strong>Mão de obra:</strong> 90 (noventa) dias a partir da data de conclusão do serviço;</li>
+    <li><strong>Peças e componentes:</strong> prazo estabelecido pelo fabricante, transferido integralmente ao cliente;</li>
+    <li><strong>Instalações novas:</strong> garantia de 1 (um) ano sobre a execução técnica, salvo danos causados por mau uso, terceiros ou eventos externos.</li>
+  </ul>
+  <p>A garantia não cobre danos decorrentes de mau uso, falta de manutenção preventiva pelo cliente, alterações realizadas por terceiros não autorizados ou casos fortuitos e de força maior.</p>
+  <p>Para acionar a garantia, entre em contato conosco pelos nossos canais oficiais com a descrição do problema e o comprovante do serviço.</p>
+
+  <hr class="terms-divider">
+
+  <h2>7. Responsabilidades do Cliente</h2>
+  <p>Para a boa execução dos Serviços, o cliente se compromete a:</p>
+  <ul>
+    <li>Fornecer acesso ao local na data e horário agendados;</li>
+    <li>Informar previamente quaisquer particularidades do imóvel que possam influenciar a execução (tensão elétrica, estrutura das paredes, impedimentos de obra, etc.);</li>
+    <li>Garantir que as informações prestadas no momento da contratação sejam verdadeiras e completas;</li>
+    <li>Não realizar intervenções nos equipamentos durante o período de garantia sem nossa autorização prévia.</li>
+  </ul>
+
+  <hr class="terms-divider">
+
+  <h2>8. Limitação de Responsabilidade</h2>
+  <p>A Degelo Ar Condicionado não se responsabiliza por danos indiretos, incidentais, consequenciais ou especiais decorrentes do uso ou incapacidade de uso dos Serviços, incluindo, mas não se limitando a:</p>
+  <ul>
+    <li>Perda de produtividade ou interrupção de atividades comerciais;</li>
+    <li>Danos causados por fatores elétricos externos (quedas de energia, surtos de tensão) não relacionados à nossa execução;</li>
+    <li>Falhas em equipamentos fora do escopo do serviço contratado.</li>
+  </ul>
+  <p>Nossa responsabilidade total está limitada ao valor pago pelo serviço que originou a reclamação.</p>
+
+  <hr class="terms-divider">
+
+  <h2>9. Privacidade e Proteção de Dados</h2>
+  <p>Os dados pessoais fornecidos pelo cliente (nome, telefone, endereço, e-mail) são utilizados exclusivamente para a prestação dos Serviços, comunicações relacionadas e cumprimento de obrigações legais. Não compartilhamos suas informações com terceiros para fins comerciais.</p>
+  <p>Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados, em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD – Lei nº 13.709/2018)</strong>.</p>
+
+  <hr class="terms-divider">
+
+  <h2>10. Propriedade Intelectual</h2>
+  <p>Todo o conteúdo do nosso site — textos, logotipos, imagens e materiais técnicos — é de propriedade exclusiva da Degelo Ar Condicionado. É vedada a reprodução, distribuição ou uso comercial sem autorização prévia e por escrito.</p>
+
+  <hr class="terms-divider">
+
+  <h2>11. Alterações nos Termos</h2>
+  <p>Reservamo-nos o direito de atualizar estes Termos a qualquer momento. Alterações relevantes serão comunicadas em nosso site ou por e-mail. O uso continuado dos Serviços após a publicação das alterações implica aceitação dos novos Termos.</p>
+
+  <hr class="terms-divider">
+
+  <h2>12. Lei Aplicável e Foro</h2>
+  <p>Estes Termos são regidos pelas leis da República Federativa do Brasil. Fica eleito o foro da Comarca de <strong>São Paulo – SP</strong> para dirimir quaisquer conflitos decorrentes deste instrumento, com renúncia expressa a qualquer outro, por mais privilegiado que seja.</p>
+
+  <hr class="terms-divider">
+
+  <h2>13. Disposições Gerais</h2>
+  <p>Estes Termos constituem o acordo integral entre as partes em relação ao seu objeto e substituem todos os entendimentos anteriores, sejam orais ou escritos.</p>
+  <p>A eventual invalidade de qualquer cláusula não compromete a validade das demais disposições, que permanecerão em pleno vigor.</p>
+  <p>Nenhuma omissão ou tolerância de qualquer das partes será interpretada como renúncia a direitos ou como novação.</p>
+
+  <!-- CONTACT BOX -->
+  <div class="terms-contact-box">
+    <h3>Ficou com alguma dúvida?</h3>
+    <p>Nossa equipe está pronta para esclarecer qualquer questão sobre estes Termos ou sobre os nossos serviços.</p>
+    <a href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.55 0 .24 5.31.24 11.84c0 2.09.55 4.13 1.59 5.94L.15 24l6.37-1.67a11.8 11.8 0 0 0 5.56 1.41h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.41-8.42z"/></svg>
+      Falar com a Degelo
+    </a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" id="contato">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo2" style="margin-bottom:16px">
+        <div class="logo2-icon">
+          <img src="img/logo2.png" alt="Degelo Ar Condicionado">
+        </div>
+      </div>
+      <div class="footer-brand-info">
+        <div class="footer-brand-title">Degelo Ar Condicionado</div>
+        <p>Soluções completas em climatização para projetos de alto padrão, empresas e grandes empreendimentos. Precisão, eficiência e excelência em cada etapa.</p>
+      </div>
+      <div class="footer-contact">
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+          <span>(11) 97085-2238</span>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg></div>
+          <span>Sede: São Paulo – SP</span>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+          <span>comercial.degeloarcondicionado@gmail.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Links Rápidos</h4>
+      <ul class="footer-links">
+        <li><a href="index.html#sobre">Sobre Nós</a></li>
+        <li><a href="index.html#faq">Perguntas Frequentes</a></li>
+        <li><a href="termos.html">Termos de Serviço</a></li>
+        <li><a href="index.html#equipe">Nossa Equipe</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Nossas Especialidades</h4>
+      <ul class="footer-links">
+        <li><a href="index.html#portfolio">Instalações VRF/VRV</a></li>
+        <li><a href="index.html#portfolio">SkyAir, Splits</a></li>
+        <li><a href="index.html#portfolio">Manutenção Preventiva e Corretiva</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-newsletter">
+      <h4>Contato</h4>
+      <p>Entre em contato conosco para mais informações sobre nossos serviços.</p>
+      <a href="https://wa.me/5511970852238" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.55 0 .24 5.31.24 11.84c0 2.09.55 4.13 1.59 5.94L.15 24l6.37-1.67a11.8 11.8 0 0 0 5.56 1.41h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.41-8.42zM12.09 21.74h-.01a9.83 9.83 0 0 1-5.01-1.37l-.36-.21-3.78.99 1.01-3.69-.23-.38a9.84 9.84 0 0 1-1.51-5.24c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.89 6.96c0 5.44-4.42 9.86-9.84 9.86zm5.41-7.39c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.23-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.18.2-.3.2-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.07-.13-.27-.2-.57-.35z"/></svg>
+        <span>Falar pelo WhatsApp</span>
+      </a>
+      <a href="mailto:comercial.degeloarcondicionado@gmail.com" class="btn-email">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="m3 7 9 6 9-6"/>
+        </svg>
+        <span>Enviar e-mail</span>
+      </a>
+      <a href="https://www.instagram.com/degeloar/" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1"/>
+        </svg>
+        <span>Nosso Instagram</span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© Copyright 2026 <a href="index.html">Degelo - Ar Condicionado</a> – Por um ambiente melhor. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- CHAT BUBBLE -->
+<div class="chat-bubble" id="chatBubble" title="Fale conosco no WhatsApp" role="button" aria-label="Abrir chat">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.55 0 .24 5.31.24 11.84c0 2.09.55 4.13 1.59 5.94L.15 24l6.37-1.67a11.8 11.8 0 0 0 5.56 1.41h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.41-8.42zM12.09 21.74h-.01a9.83 9.83 0 0 1-5.01-1.37l-.36-.21-3.78.99 1.01-3.69-.23-.38a9.84 9.84 0 0 1-1.51-5.24c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.89 6.96c0 5.44-4.42 9.86-9.84 9.86zm5.41-7.39c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.23-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.18.2-.3.2-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.07-.13-.27-.2-.57-.35z"/>
+  </svg>
+</div>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.getElementById('chatBubble').addEventListener('click', function() {
+    window.open('https://wa.me/5511970852238', '_blank');
+  });
+</script>
+</body>
+</html>
